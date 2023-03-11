@@ -5,17 +5,33 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { Box, Drawer, ListItemButton } from '@mui/material';
+import { Drawer, ListItemButton } from '@mui/material';
+import { type } from 'os';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
-
 interface NavBarProps {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window?: () => Window;
 }
+
+interface Menu {
+  id: number;
+  label: string;
+  route: string;
+}
+
+const menuItems: Menu[] = [
+  {
+    id: 1,
+    label: 'لیست مشتری ها',
+    route: 'person-list',
+  },
+  {
+    id: 2,
+    label: 'افزودن شخص',
+    route: 'person-form',
+  },
+];
 
 export function NavBar(props: NavBarProps) {
   const { window } = props;
@@ -28,28 +44,17 @@ export function NavBar(props: NavBarProps) {
   const drawer = (
     <div>
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
+        {menuItems.map((item, index) => (
+          <Link to={item.route}>
+            <ListItem key={item.id} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={item.label} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
         ))}
       </List>
     </div>
@@ -59,45 +64,38 @@ export function NavBar(props: NavBarProps) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
+    <React.Fragment>
+      <Drawer
+        container={container}
+        variant="temporary"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true,
+        }}
+        sx={{
+          display: { xs: 'block', sm: 'none' },
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
+            width: drawerWidth,
+          },
+        }}
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
-              width: drawerWidth,
-            },
-          }}
-        >
-          {drawer}
-        </Drawer>
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
-              width: drawerWidth,
-            },
-          }}
-          open
-        >
-          {drawer}
-        </Drawer>
-      </Box>
-    </Box>
+        {drawer}
+      </Drawer>
+      <Drawer
+        variant="permanent"
+        sx={{
+          display: { xs: 'none', sm: 'block' },
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
+            width: drawerWidth,
+          },
+        }}
+        open
+      >
+        {drawer}
+      </Drawer>
+    </React.Fragment>
   );
 }

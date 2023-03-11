@@ -6,6 +6,8 @@
   src: url('/assets/fonts/IRAN-Kharazmi.woff') format('woff');
 }
 
-body {
-  font-family: 'IRAN-Kharazmi';
+@font-face {
+  font-family: 'IRANSans';
+  src: url('/assets/fonts/IRANSansX-Regular.woff2') format('woff');
+  src: url('/assets/fonts/IRANSansX-Bold.woff2') format('woff');
 }

@@ -1,6 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.scss';
-import { PersonList } from '@parvan/shared/person-list';
 import { createTheme } from '@mui/material/styles';
 import { CacheProvider, ThemeProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
@@ -8,10 +6,11 @@ import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
 import { IconButton, Toolbar, Typography } from '@mui/material';
 import { NavBar } from '@parvan/shared/nav-bar';
+import { Outlet } from 'react-router-dom';
 
 const theme = createTheme({
   direction: 'rtl',
-  typography: { fontFamily: 'IRAN-Kharazmi' },
+  typography: { fontFamily: 'IRANSans' },
 });
 
 const cacheRtl = createCache({
@@ -35,7 +34,7 @@ export function App() {
           </Typography>
         </Toolbar>
         <NavBar />
-        <PersonList />
+        <Outlet />
       </ThemeProvider>
     </CacheProvider>
   );
