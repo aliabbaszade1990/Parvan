@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './app/app';
 import { PersonList } from '@parvan/shared/person-list';
+import { PersonForm } from '@parvan/shared/person-form';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,14 @@ const router = createBrowserRouter([
       {
         path: 'person-list',
         element: <PersonList />,
+      },
+      {
+        path: 'person-form',
+        element: <PersonForm />,
+      },
+      {
+        path: 'person-form/:id',
+        element: <PersonForm />,
       },
     ],
   },

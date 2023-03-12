@@ -33,7 +33,7 @@ export function App() {
             مدیریت اشخاص
           </Typography>
         </Toolbar>
-        <NavBar />
+        {/* <NavBar /> */}
         <Outlet />
       </ThemeProvider>
     </CacheProvider>

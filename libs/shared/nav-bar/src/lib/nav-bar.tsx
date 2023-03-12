@@ -6,7 +6,6 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Drawer, ListItemButton } from '@mui/material';
-import { type } from 'os';
 import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -23,12 +22,12 @@ interface Menu {
 const menuItems: Menu[] = [
   {
     id: 1,
-    label: 'لیست مشتری ها',
+    label: 'مشتری ها',
     route: 'person-list',
   },
   {
     id: 2,
-    label: 'افزودن شخص',
+    label: 'افزودن مشتری',
     route: 'person-form',
   },
 ];

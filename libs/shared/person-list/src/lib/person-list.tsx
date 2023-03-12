@@ -54,11 +54,11 @@ const columns = [
   },
   {
     field: 'name',
-    headerName: 'تام',
+    headerName: 'نام',
   },
   {
     field: 'family',
-    headerName: 'تام خانوادگی',
+    headerName: 'نام خانوادگی',
   },
   {
     field: 'male',

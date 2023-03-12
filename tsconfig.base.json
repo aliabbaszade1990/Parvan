@@ -17,6 +17,7 @@
     "paths": {
       "@parvan/shared/assets": ["libs/shared/assets/src/index.ts"],
       "@parvan/shared/nav-bar": ["libs/shared/nav-bar/src/index.ts"],
+      "@parvan/shared/person-form": ["libs/shared/person-form/src/index.ts"],
       "@parvan/shared/person-list": ["libs/shared/person-list/src/index.ts"]
     }
   },
