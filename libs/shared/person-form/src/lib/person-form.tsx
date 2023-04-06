@@ -17,7 +17,7 @@ export function PersonForm(props: PersonFormProps) {
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Box>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
             <Tab label="شهروند ایرانی" value="1" />
             <Tab label="شهروند غیر ایرانی" value="2" />

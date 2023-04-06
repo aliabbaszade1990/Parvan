@@ -5,8 +5,8 @@ import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
 import { IconButton, Toolbar, Typography } from '@mui/material';
-import { NavBar } from '@parvan/shared/nav-bar';
 import { Outlet } from 'react-router-dom';
+import { NavBar } from '@parvan/shared/nav-bar';
 
 const theme = createTheme({
   direction: 'rtl',
@@ -33,7 +33,7 @@ export function App() {
             مدیریت اشخاص
           </Typography>
         </Toolbar>
-        {/* <NavBar /> */}
+        <NavBar />
         <Outlet />
       </ThemeProvider>
     </CacheProvider>
