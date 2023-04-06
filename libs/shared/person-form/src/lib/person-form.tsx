@@ -4,8 +4,10 @@ import React from 'react';
 import IranianCitizen from './components/iranian-citizen/iranian-citizen';
 import Organization from './components/organization/organization';
 import OtherCitizen from './components/other-citizen/other-citizen';
+import { useEffect, useState } from 'react';
 
 export interface PersonFormProps {}
+
 
 export function PersonForm(props: PersonFormProps) {
   const [value, setValue] = React.useState('1');
@@ -14,7 +16,20 @@ export function PersonForm(props: PersonFormProps) {
     setValue(newValue);
   };
 
+  const [widthSide ,setWidth] = useState('')
+
+  useEffect(()=>{
+   if(window.innerWidth <= 700){
+    setWidth('100%')
+   }
+   else{
+    setWidth('80%')
+   }
+  }, [window.innerWidth])
+
+
   return (
+    <div style={{width: widthSide, float: 'left',}}>
     <Box sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={value}>
         <Box>
@@ -35,6 +50,7 @@ export function PersonForm(props: PersonFormProps) {
         </TabPanel>
       </TabContext>
     </Box>
+    </div>
   );
 }
 
