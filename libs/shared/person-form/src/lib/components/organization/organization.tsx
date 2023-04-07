@@ -1,4 +1,4 @@
-import { Button, Divider, TextField, Autocomplete } from '@mui/material';
+import { Button, Divider, TextField, Autocomplete, FormHelperText } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
@@ -28,7 +28,7 @@ interface OFormInput {
 export interface OrganizationProps {}
 
 export function Organization(props: OrganizationProps) {
-  const { register, handleSubmit, watch } = useForm<OFormInput>();
+  const { register, handleSubmit, watch, formState: {errors} } = useForm<OFormInput>();
   const onSubmit: SubmitHandler<OFormInput> = (data) => console.log(data);
   return (
     <div style={{ marginBottom: 30 }}>
@@ -39,10 +39,9 @@ export function Organization(props: OrganizationProps) {
             id="outlined-basic"
             label="شناسه ملی*"
             variant="outlined"
-            {...register('nationalID', {
-              required: true,
-              pattern: /^[0-9]{10}$/,
-            })}
+            {...register('nationalID', { required: "شناسه ملی را وارد کنید"})}
+            error= {Boolean(errors.nationalID)}
+            helperText={errors.nationalID?.message}
             className="!ml-4"
           />
           <Button
@@ -73,10 +72,10 @@ export function Organization(props: OrganizationProps) {
             id="outlined-basic"
             label="نام*"
             variant="outlined"
-            {...register('name', {
-              required: true,
-              pattern: /^[0-9]{10}$/,
-            })}
+            
+            {...register('name', { required: "نام خود را وارد کنید"})}
+            error= {Boolean(errors.name)}
+            helperText={errors.name?.message}
             className="!ml-4"
           />
 
@@ -84,10 +83,10 @@ export function Organization(props: OrganizationProps) {
             id="outlined-basic"
             label="نام رسمی*"
             variant="outlined"
-            {...register('officialName', {
-              required: true,
-              pattern: /^[0-9]{10}$/,
-            })}
+
+            {...register('officialName', { required: "نام رسمی را وارد کنید"})}
+            error= {Boolean(errors.officialName)}
+            helperText={errors.officialName?.message}
             className="!ml-4"
           />
 
@@ -101,7 +100,7 @@ export function Organization(props: OrganizationProps) {
                 required: true,
                 pattern: /^[0-9]{10}$/,
               })}
-              disabled={!watch('selectPrefix')}
+              
               renderTags={(value, getTagProps) =>
                 value.map((option, index) => (
                   <Chip
@@ -183,12 +182,12 @@ export function Organization(props: OrganizationProps) {
         <img src={trash} alt="no images" style={{cursor: 'pointer', height: 27, marginTop: 14}} className="!ml-4"/>
           <TextField
             id="outlined-basic"
-            label="نام رابط"
+            label="نام رابط*"
             variant="outlined"
-            {...register('interfaceName', {
-              required: true,
-              pattern: /^[0-9]{10}$/,
-            })}
+
+            {...register('interfaceName', { required: "نام رابط را وارد کنید"})}
+            error= {Boolean(errors.interfaceName)}
+            helperText={errors.interfaceName?.message}
             className="!ml-4"
           />
           <TextField
@@ -237,10 +236,10 @@ export function Organization(props: OrganizationProps) {
           label="آدرس*"
           multiline
           rows={2}
-          {...register('address', {
-            required: true,
-            pattern: /^[0-9]{10}$/,
-          })}
+
+          {...register('address', { required: "آدرس را پر کنید"})}
+          error= {Boolean(errors.address)}
+          helperText={errors.address?.message}
           className="!ml-4"
         />
 
@@ -290,10 +289,10 @@ export function Organization(props: OrganizationProps) {
             id="outlined-basic"
             label="کد پستی*"
             variant="outlined"
-            {...register('postalCode', {
-              required: true,
-              pattern: /^[0-9]{10}$/,
-            })}
+
+             {...register('postalCode', { required: "کد پستی را وارد کنید"})}
+            error= {Boolean(errors.postalCode)}
+            helperText={errors.postalCode?.message}
             className="!ml-4"
           />
             <div className='!mt-5'>
@@ -315,7 +314,7 @@ export function Organization(props: OrganizationProps) {
             />
             <Button className='!mt-5'
             variant="contained"
-            disabled={!watch('note')}
+            type="submit"
             style={{ marginTop: 10 }}
             >
               ذخیره اطلاعات

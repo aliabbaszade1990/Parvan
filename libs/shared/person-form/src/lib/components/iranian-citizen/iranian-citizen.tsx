@@ -1,4 +1,4 @@
-import { Button, Divider, TextField, Autocomplete } from '@mui/material';
+import { Button, Divider, TextField, Autocomplete, FormHelperText } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
@@ -7,7 +7,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import trash from '../../../../../assets/src/lib/images/trash.svg';
+// import trash from '../../../../../assets/src/lib/images/trash.svg';
 
 interface IFormInput {
   nationalCode: string;
@@ -17,6 +17,7 @@ interface IFormInput {
   englishName: string;
   englishLastName: string;
   gender: string;
+  city: string;
   address: string | number;
   otherLangAddress: string | number;
   phoneNumber: number;
@@ -30,21 +31,21 @@ export interface IranianCitizenProps {}
 
 export function IranianCitizen(props: IranianCitizenProps) {
 
-  const { register, handleSubmit, watch } = useForm<IFormInput>();
+  const { register, handleSubmit, watch, formState: {errors} } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
   return (
     <div style={{ marginBottom: 30 }}>
       <Divider style={{ marginBottom: 15 }} textAlign="left">اطلاعات هویتی</Divider>
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <TextField
             id="outlined-basic"
             label="کد ملی*"
             variant="outlined"
-            {...register('nationalCode', {
-              required: true,
-              pattern: /^[0-9]{10}$/,
-            })}
+            {...register('nationalCode', { required: "کد ملی اجباری میباشد"})}
+            error= {Boolean(errors.nationalCode)}
+            helperText={errors.nationalCode?.message}
             className="!ml-4"
           />
           <Button
@@ -75,10 +76,9 @@ export function IranianCitizen(props: IranianCitizenProps) {
             id="outlined-basic"
             label="نام*"
             variant="outlined"
-            {...register('name', {
-              required: true,
-              pattern: /^[0-9]{10}$/,
-            })}
+            {...register('name', { required: "نام خود را وارد کنید"})}
+            error= {Boolean(errors.name)}
+            helperText={errors.name?.message}
             className="!ml-4"
           />
 
@@ -86,10 +86,9 @@ export function IranianCitizen(props: IranianCitizenProps) {
             id="outlined-basic"
             label="نام خانوادگی*"
             variant="outlined"
-            {...register('lastName', {
-              required: true,
-              pattern: /^[0-9]{10}$/,
-            })}
+            {...register('lastName', { required: "نام خانوادگی خود را وارد کنید"})}
+            error= {Boolean(errors.lastName)}
+            helperText={errors.lastName?.message}
             className="!ml-4"
           />
 
@@ -99,7 +98,6 @@ export function IranianCitizen(props: IranianCitizenProps) {
               size="small"
               options={customerLang}
               getOptionLabel={(option) => option.title}
-              disabled
               {...register('customerOtherLang', {
                 required: true,
                 pattern: /^[0-9]{10}$/,
@@ -182,10 +180,7 @@ export function IranianCitizen(props: IranianCitizenProps) {
 
         <div style={{ marginTop: 30 }}>
           <FormControl
-            {...register('gender', {
-            required: true,
-            pattern: /^[0-9]{10}$/,
-            })}
+            error={Boolean(errors.gender)}
           >
             <FormLabel id="demo-row-radio-buttons-group-label">جنسیت</FormLabel>
             <RadioGroup
@@ -193,10 +188,11 @@ export function IranianCitizen(props: IranianCitizenProps) {
               aria-labelledby="demo-row-radio-buttons-group-label"
               name="row-radio-buttons-group"
             >
-              <FormControlLabel value="مرد" control={<Radio />} label="مرد" />
-              <FormControlLabel value="زن" control={<Radio />} label="زن" />
-              <FormControlLabel value="سایر" control={<Radio />} label="سایر" />
+              <FormControlLabel value="مرد" control={<Radio {...register('gender', {required: "جنسیت خود را انتخاب کنید",})} />} label="مرد" />
+              <FormControlLabel value="زن" control={<Radio {...register('gender', {required: "جنسیت خود را انتخاب کنید",})} />} label="زن" />
+              <FormControlLabel value="سایر" control={<Radio {...register('gender', {required: "جنسیت خود را انتخاب کنید",})} />} label="سایر" />
             </RadioGroup>
+            <FormHelperText style={{color: '#d32f2f'}}>{errors.gender?.message}</FormHelperText>
           </FormControl>
         </div>
         <Divider style={{ marginBottom: 15, marginTop: 20}} textAlign="left">شماره های موبایل</Divider>
@@ -220,6 +216,10 @@ export function IranianCitizen(props: IranianCitizenProps) {
             options={city}
             sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} label="شهر*" />}
+            
+            // {...register('city', { required: "شهر خود را انتخاب کنید"})}
+            // error= {Boolean(errors.city)}
+            // helperText={errors.city?.message}
             className="!ml-4"
           />
           <TextField style={{width: '50%'}}
@@ -227,10 +227,10 @@ export function IranianCitizen(props: IranianCitizenProps) {
           label="آدرس*"
           multiline
           rows={2}
-          {...register('address', {
-            required: true,
-            pattern: /^[0-9]{10}$/,
-          })}
+
+          {...register('address', { required: "آدرس را پر کنید"})}
+          error= {Boolean(errors.address)}
+          helperText={errors.address?.message}
           className="!ml-4"
         />
 
@@ -280,10 +280,10 @@ export function IranianCitizen(props: IranianCitizenProps) {
             id="outlined-basic"
             label="کد پستی*"
             variant="outlined"
-            {...register('postalCode', {
-              required: true,
-              pattern: /^[0-9]{10}$/,
-            })}
+
+            {...register('postalCode', { required: "کد پستی را وارد کنید"})}
+            error= {Boolean(errors.postalCode)}
+            helperText={errors.postalCode?.message}
             className="!ml-4"
           />
             <div className='!mt-5'>
@@ -305,7 +305,7 @@ export function IranianCitizen(props: IranianCitizenProps) {
             />
             <Button className='!mt-5'
             variant="contained"
-            disabled={!watch('note')}
+            type="submit"
             style={{ marginTop: 10 }}
             >
               ذخیره اطلاعات
